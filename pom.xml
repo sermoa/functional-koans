@@ -63,6 +63,7 @@
           <scalaVersion>${scala.version}</scalaVersion>
           <args>
             <arg>-target:jvm-1.5</arg>
+            <arg>-nowarn</arg>
           </args>
         </configuration>
       </plugin>
