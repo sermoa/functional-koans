@@ -1,20 +1,23 @@
-# Functional Koans
+# Functional Koans - Functional Javascript #
 
+Based on EdgeCase's fantastic [Ruby koans](http://github.com/edgecase/ruby_koans),
+the goal of the Functional Javascript koans is to teach you Functional Javascript through testing.
 
-### About the Koans
+When you first run the koans, you'll be presented with a runtime error and a
+stack trace indicating where the error occured. Your goal is to make the
+error go away. As you fix each error, you should learn something about
+the Javascript language and functional programming in general.
 
-There are several functional languages that have contributed their own
-versions of the koans.  Each language has it's own branch with
-detailed instructions on how to get started.
+Your journey towards Javascript enlightenment starts in the AboutAsserts.js file. These
+koans will be very simple, so don't overthink them! As you progress through
+more koans, more and more Javascript syntax will be introduced which will allow
+you to solve more complicated problems and use more advanced techniques.
+
 
 ### Getting Started
 
-To get the koans for a particular language, simply checkout the
-branch:
+The Functional Javascript koans use the Functional Javascript library from http://osteele.com/sources/javascript/functional/ .This library is included; but see the Url for documentation.
 
-`git checkout -b <branch_name>`
+### Running the Koans
 
-where <branch_name> is the name of the branch (language) you want to
-work on.  To get a list of all branches run:
 
-`git branch -a`
