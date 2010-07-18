@@ -19,7 +19,8 @@ you to solve more complicated problems and use more advanced techniques.
 These Koans are written to be run using the JsTestDriver unit test framework 
 which runs Javascript from within Eclipse concurrently in multiple attached browsers.
 
-To use you will need Eclipse 3.6 along with the JsTestDriver plugin - http://code.google.com/p/js-test-driver/wiki/UsingTheEclipsePlugin
+To use you will need Eclipse 3.6 for Javascript Web Developers - http://www.eclipse.org/downloads/packages/eclipse-ide-javascript-web-developers/heliosm4
+along with the JsTestDriver plugin - http://code.google.com/p/js-test-driver/wiki/UsingTheEclipsePlugin
 
 ### Running the Koans
 
