@@ -98,7 +98,7 @@ AboutFunctions.prototype.testFunctionsAsValues = function() {
 	
 	praiseSinger.givePraise = appendDoubleRules;
 	assertEquals(__, praiseSinger.givePraise("Mary"));
-	
+		
 };
 
 AboutFunctions.prototype.testFunctionBodyAsAString = function() {

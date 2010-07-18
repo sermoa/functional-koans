@@ -16,8 +16,14 @@ you to solve more complicated problems and use more advanced techniques.
 
 ### Getting Started
 
-The Functional Javascript koans use the Functional Javascript library from http://osteele.com/sources/javascript/functional/ .This library is included; but see the Url for documentation.
+These Koans are written to be run using the JsTestDriver unit test framework 
+which runs Javascript from within Eclipse concurrently in multiple attached browsers.
+
+To use you will need Eclipse 3.6 along with the JsTestDriver plugin - http://code.google.com/p/js-test-driver/wiki/UsingTheEclipsePlugin
 
 ### Running the Koans
 
+Import the project into Eclipse 3.6 (with JsTestDriver plugin), start the JsTestDriver, attach a browser,
+create a new Js Test Driver run configuration, and Run.
 
+Start editing src-test/AboutAssert.js, and rerunning the tests until they go green.
