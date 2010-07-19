@@ -2,12 +2,12 @@ AboutAsserts = TestCase("AboutAsserts");
 
 //We shall contemplate truth by testing reality, via asserts.
 AboutAsserts.prototype.testAssertTrue = function() {
-	assert(false);  // This should be true
+	assert(true);  // This should be true
 };
 
 //Enlightenment may be more easily achieved with appropriate messages.
 AboutAsserts.prototype.testAssertWithMessage = function() {
-	assert("This should be true -- Please fix this", false);
+	assert("This should be true -- Please fix this", true);
 };
 
 //To understand reality, we must compare our expectations against reality.
