@@ -6,8 +6,24 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.eclipse.wst.jsdt.core.javascriptValidator</name>
+			<name>com.rockstarapps.jslint.JsLintBuilder</name>
 			<arguments>
+				<dictionary>
+					<key>buildAll</key>
+					<value>true</value>
+				</dictionary>
+				<dictionary>
+					<key>external_defines</key>
+					<value>TestCase, assert, assertEquals, __</value>
+				</dictionary>
+				<dictionary>
+					<key>properties</key>
+					<value>params = {passfail: false,debug: false,undef: true,white: true,evil: false,nomen: false,browser: false,cap: false,eqeqeq: true,widget: false,on: false,plusplus: true,sidebar: false,fragment: false,bitwise: true,rhino: false,laxbreak: false,regexp: true,safe: false,forin: false,onevar: false,adsafe: false,sub: false,strict: false,css: false,newcap: true,maxerrors:50,indent:4};</value>
+				</dictionary>
+				<dictionary>
+					<key>selection</key>
+					<value></value>
+				</dictionary>
 			</arguments>
 		</buildCommand>
 	</buildSpec>

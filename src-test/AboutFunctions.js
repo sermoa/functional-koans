@@ -1,16 +1,16 @@
-AboutFunctions = TestCase("AboutFunctions");
+var AboutFunctions = new TestCase("AboutFunctions");
 
-AboutFunctions.prototype.testFunctionDeclaration = function() {
+AboutFunctions.prototype.testFunctionDeclaration = function () {
 	
 	function add(a, b) {
 		return a + b;
 	}
 	
-	assertEquals(__, add(1,2));
+	assertEquals(__, add(1, 2));
 
 };
 
-AboutFunctions.prototype.testInternalVariablesOverrideOuterVariables = function() {
+AboutFunctions.prototype.testInternalVariablesOverrideOuterVariables = function () {
 	var message = "Outer";
 	
 	function getMessage() {
@@ -27,19 +27,19 @@ AboutFunctions.prototype.testInternalVariablesOverrideOuterVariables = function(
 	assertEquals(__, message);
 };
 
-AboutFunctions.prototype.testLexicalScoping = function() {
+AboutFunctions.prototype.testLexicalScoping = function () {
 	var variable = "top-level";
-	function parentFunction() {
-	  var variable = "local";
-	  function childFunction() {
-	    return variable;
-	  }
-	  return childFunction();
+	function parentfunction() {
+	    var variable = "local";
+		function childfunction() {
+		    return variable;
+		}
+		return childfunction();
 	}
-	assertEquals(__,parentFunction());
+	assertEquals(__, parentfunction());
 };
 
-AboutFunctions.prototype.testUsingLexicalScopingToSynthesiseFunctions = function() {
+AboutFunctions.prototype.testUsingLexicalScopingToSynthesiseFunctions = function () {
 	
 	function makeIncreaseByFunction(increaseByAmount)
 	{
@@ -56,14 +56,14 @@ AboutFunctions.prototype.testUsingLexicalScopingToSynthesiseFunctions = function
 	assertEquals(__, increaseBy3(10) + increaseBy5(10));
 };
 
-AboutFunctions.prototype.testExtraFunctionArguments = function() {
+AboutFunctions.prototype.testExtraFunctionArguments = function () {
 	
 	function returnFirstArg(firstArg)
 	{
 		return firstArg;
 	}
 	
-	assertEquals(__, returnFirstArg("first","second","third"));
+	assertEquals(__, returnFirstArg("first", "second", "third"));
 	
 	function returnSecondArg(firstArg, secondArg)
 	{
@@ -75,21 +75,22 @@ AboutFunctions.prototype.testExtraFunctionArguments = function() {
 	function returnAllArgs()
 	{
 		var argsArray = [];
-		for (i=0; i<arguments.length; i++)
+		for (var i = 0; i < arguments.length; i += 1) {
 			argsArray.push(arguments[i]);
+		}
 		return argsArray.join(",");
 	}
 	
 	assertEquals(__, returnAllArgs("first", "second", "third"));
 };
 
-AboutFunctions.prototype.testFunctionsAsValues = function() {
+AboutFunctions.prototype.testFunctionsAsValues = function () {
 
-	var appendRules = function(name) {
+	var appendRules = function (name) {
 		return name + " rules!";
 	};
 	
-	var appendDoubleRules = function(name) {
+	var appendDoubleRules = function (name) {
 		return name + " totally rules!";
 	};
 	
@@ -101,11 +102,11 @@ AboutFunctions.prototype.testFunctionsAsValues = function() {
 		
 };
 
-AboutFunctions.prototype.testFunctionBodyAsAString = function() {
+AboutFunctions.prototype.testFunctionBodyAsAString = function () {
 	var add = new Function("a", "b", "return a + b;");
-	assertEquals(__, add(1,2));
-	
-	var multiply = function(a,b) {
+	assertEquals(__, add(1, 2));
+	 
+	var multiply = function (a, b) {
 		//An internal comment
 		return a * b;
 	};
