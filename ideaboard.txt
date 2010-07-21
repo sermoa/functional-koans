@@ -1,11 +1,17 @@
 Test asserts - Message, bool, etc.
-Tuples - syntax
-Pattern Matching
-Functions returning functions
-Functions taking functions
-if expressions
-for comprehensions
+Objects
+Arrays
+Functions
+
+Map
+Filter
+Reduce
+Lambda
+forEach
+Every
+
 immutability/side effects
+
 state identity lifetime
 collections array, list
 map, reduce, filter
