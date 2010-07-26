@@ -59,9 +59,39 @@ var AboutHigherOrderFunctions = new TestCase("ApplyingWhatWeveLearnt", {
  
 	/***********************************************************************************/
 	
-	testFindTheSumOfAllTheEvenValuedTermsInTheFibonacciSequenceWhichDoNotExceedFourMillion: function () {
+	testFindTheSumOfAllTheEvenValuedTermsInTheFibonacciSequenceWhichDoNotExceedFourMillion_Imperative: function () {
+		var sum = 0;
+		var fib = [0,1,1];
+	    var i = 3;	
+	    var currentFib = 0;
+		do {
+			currentFib = fib[i] = fib[i-1] + fib[i-2];
+			if (currentFib % 2 === 0) {
+				sum += currentFib;
+			}
+			i+=1;
+		} while (currentFib < 4000000);
 		
+		assertEquals(4613732, sum);
 	},
+	
+	testFindTheSumOfAllTheEvenValuedTermsInTheFibonacciSequenceWhichDoNotExceedFourMillion_Functional: function () {
+		var calcNextFibTuple = function(item, index, array) {
+			return [item[1], item[0]+item[1]];
+		};
+		var addEven = function(result, item) {
+			if (item[0]  % 2 === 0) { 
+				return result + item[0];
+			}
+			return result;
+		};
+		var fib = df.until("item[0] > 4000000", calcNextFibTuple, [0,1]);
+		var sum = df.reduce(fib, addEven, 0);
+		
+		assertEquals(4613732, sum);
+	},
+
+	/***********************************************************************************/
 	
 	testFindTheLargestPrimeFactorOfACompositeNumber: function () {
 		
