@@ -30,10 +30,32 @@ var AboutHigherOrderFunctions = new TestCase("AboutHigherOrderFunctions", {
 	},
 	
 	testForEach : function () {
-		df.forEach(this.numbers, function(item) { jstestdriver.console.log(item);});
+		df.forEach(this.numbers, function(x) { jstestdriver.console.log(x);});
 		
-		//forEach doesn't return anything, so see the console
+		//forEach doesn't return anything, so see see the console
 		assertEquals(__,this.numbers);
+	}, 
+	
+	testSomeAppliesUntilTrue : function () {
+		var msg = "";
+		var isEven = function (item) {
+			msg += item + ";";
+			return (item % 2) === 0;
+		};
+		
+		assertEquals(true, this.numbers.some(isEven));
+		assertEquals(__, msg);
+	},
+	
+	testEveryAppliesUntilFirstFalse : function () {
+		var msg = "";
+		var isEven = function (item) {
+			msg += item + ";";
+			return (item % 2) === 0;
+		};
+		
+		assertEquals(false, this.numbers.every(isEven));
+		assertEquals(__, msg);
 	}
 });
 

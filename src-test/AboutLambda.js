@@ -19,3 +19,4 @@ var AboutLambda = new TestCase("AboutLambda", {
 		assertEquals(__, df.map([1, 2, 3], "x + 1"));
 	}
 });
+
