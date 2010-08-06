@@ -10,12 +10,12 @@ class AboutValAndVar extends KoanSuite with ShouldMatchers {
     a should be (5)
 
     a = 7
-    a should be (7)
+    a should be (__)
   }
 
   koan("vals may not be reassigned") {
     val a = 5
-    a should be (5)
+    a should be (__)
 
     // What happens if you uncomment these lines?
     // a = 7
