@@ -1,6 +1,6 @@
-var AboutFunctions = new TestCase("AboutFunctions");
+var jstestdriver, koans; //globals
 
-AboutFunctions.prototype.testFunctionDeclaration = function () {
+koans.add("About Asserts", "Function Declaration", function () {
 	
 	function add(a, b) {
 		return a + b;
@@ -8,9 +8,9 @@ AboutFunctions.prototype.testFunctionDeclaration = function () {
 	
 	assertEquals(__, add(1, 2));
 
-};
+});
 
-AboutFunctions.prototype.testInternalVariablesOverrideOuterVariables = function () {
+koans.add("About Asserts", "Internal Variables Override Outer Variables", function () {
 	var message = "Outer";
 	
 	function getMessage() {
@@ -25,9 +25,9 @@ AboutFunctions.prototype.testInternalVariablesOverrideOuterVariables = function 
 	assertEquals(__, getMessage());
 	assertEquals(__, overrideMessage());
 	assertEquals(__, message);
-};
+});
 
-AboutFunctions.prototype.testLexicalScoping = function () {
+koans.add("About Asserts", "Lexical Scoping", function () {
 	var variable = "top-level";
 	function parentfunction() {
 	    var variable = "local";
@@ -37,9 +37,9 @@ AboutFunctions.prototype.testLexicalScoping = function () {
 		return childfunction();
 	}
 	assertEquals(__, parentfunction());
-};
+});
 
-AboutFunctions.prototype.testUsingLexicalScopingToSynthesiseFunctions = function () {
+koans.add("About Asserts", "Using Lexical Scoping To Synthesise Functions", function () {
 	
 	function makeIncreaseByFunction(increaseByAmount)
 	{
@@ -54,9 +54,9 @@ AboutFunctions.prototype.testUsingLexicalScopingToSynthesiseFunctions = function
 	var increaseBy5 = makeIncreaseByFunction(5);
 	
 	assertEquals(__, increaseBy3(10) + increaseBy5(10));
-};
+});
 
-AboutFunctions.prototype.testExtraFunctionArguments = function () {
+koans.add("About Asserts", "Extra Function Arguments", function () {
 	
 	function returnFirstArg(firstArg)
 	{
@@ -82,9 +82,9 @@ AboutFunctions.prototype.testExtraFunctionArguments = function () {
 	}
 	
 	assertEquals(__, returnAllArgs("first", "second", "third"));
-};
+});
 
-AboutFunctions.prototype.testFunctionsAsValues = function () {
+koans.add("About Asserts", "Functions As Values" function () {
 
 	var appendRules = function (name) {
 		return name + " rules!";
@@ -100,9 +100,9 @@ AboutFunctions.prototype.testFunctionsAsValues = function () {
 	praiseSinger.givePraise = appendDoubleRules;
 	assertEquals(__, praiseSinger.givePraise("Mary"));
 		
-};
+});
 
-AboutFunctions.prototype.testFunctionBodyAsAString = function () {
+koans.add("About Asserts", "Function Body As A String", function () {
 	var add = new Function("a", "b", "return a + b;");
 	assertEquals(__, add(1, 2));
 	 
@@ -111,5 +111,5 @@ AboutFunctions.prototype.testFunctionBodyAsAString = function () {
 		return a * b;
 	};
 	assertEquals(__, multiply.toString());
-};
+});
 

@@ -1,32 +1,32 @@
-var AboutAsserts = new TestCase("AboutAsserts");
+var jstestdriver, koans; //globals
 
 //We shall contemplate truth by testing reality, via asserts.
-AboutAsserts.prototype.testAssertTrue = function () {
-	assert(false);  // This should be true
-};
-
+koans.add("About Asserts", "Assert True", function () {
+	assert(false);  // This should be true 
+});        
+     
 //Enlightenment may be more easily achieved with appropriate messages.
-AboutAsserts.prototype.testAssertWithMessage = function () {
-	assert("This should be true -- Please fix this", false);
-};
+koans.add("About Asserts", "Assert With Message", function () {
+	assert("This should be true -- Please fix this", false); 
+});
 
 //To understand reality, we must compare our expectations against reality.
-AboutAsserts.prototype.testAssertEquality = function () {
+koans.add("About Asserts", "Assert Equality", function () { 
 	var expectedValue = 2;
 	var actualValue = 1 + __;
 	
 	assert(expectedValue === actualValue);
-};
+});
 
 //Some ways of asserting equality are better than others.
-AboutAsserts.prototype.testABetterWayOfAssertingEquality = function () {
+koans.add("About Asserts", "A Better Way Of Asserting Equality", function () {
 	var expectedValue = 2;
 	var actualValue = 1 + __;
 	
 	assertEquals(expectedValue, actualValue);
-};
+});
 
 //Sometimes we will ask you to fill in the values
-AboutAsserts.prototype.testFillInValues = function () {
+koans.add("About Asserts", "Fill In Values", function () {
 	assertEquals(__, 1 + 1);
-};
+});

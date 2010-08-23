@@ -1,6 +1,6 @@
-var AboutArrays = new TestCase("AboutArrays");
+var jstestdriver, koans; //globals
 
-AboutArrays.prototype.testCreatingArrays = function () {
+koans.add("About Arrays", "Creating Arrays", function () {
 	var emptyArray = [];
 	assertEquals(__, typeof(emptyArray)); //A mistake? - http:javascript.crockford.com/remedial.html
 	assertEquals(__, emptyArray.length);
@@ -12,9 +12,9 @@ AboutArrays.prototype.testCreatingArrays = function () {
 	assertEquals(__, multiTypeArray[4].value1);
 	assertEquals(__, multiTypeArray[4]["value2"]);
 	assertEquals(__, multiTypeArray[5][0]);
-};
+});
 
-AboutArrays.prototype.testArrayLiterals = function () {
+koans.add("About Arrays", "Array Literals", function () {
 	var array = [];
 	assertEquals([], array);
 	
@@ -26,18 +26,18 @@ AboutArrays.prototype.testArrayLiterals = function () {
 	
 	array.push(3);
 	assertEquals(__, array);
-};
+});
 
-AboutArrays.prototype.testAccessingArrayElements = function () {
+koans.add("About Arrays", "Accessing Array Elements", function () {
 	var array = ["peanut", "butter", "and", "jelly"];
 	
 	assertEquals(__, array[0]);
 	assertEquals(__, array[3]);
 	assertEquals(__, array[array.length - 1]); 
 	assertEquals(__, array[-1]);
-};
+});
 
-AboutArrays.prototype.testArrayLength = function () {
+koans.add("About Arrays", "Array Length", function () {
 	var fourNumberArray = [1, 2, 3, 4];
 	
 	assertEquals(__, fourNumberArray.length);
@@ -50,9 +50,9 @@ AboutArrays.prototype.testArrayLength = function () {
 	tenEmptyElementArray.length = 5;
 	assertEquals(__, tenEmptyElementArray.length);
 	
-};
+});
 
-AboutArrays.prototype.testSlicingArrays = function () {
+koans.add("About Arrays", "Slicing Arrays", function () {
 	var array = ["peanut", "butter", "and", "jelly"];
 	
 	assertEquals(__, array.slice(0, 1));
@@ -62,9 +62,9 @@ AboutArrays.prototype.testSlicingArrays = function () {
 	assertEquals(__, array.slice(3, 0));
 	assertEquals(__, array.slice(3, 100));
 	assertEquals(__, array.slice(5, 1));
-};
+});
 
-AboutArrays.prototype.testArraysReferences = function () {
+koans.add("About Arrays", "Array References", function () {
 	var array = [ "zero", "one", "two", "three", "four", "five" ];
 
 	function passedByReference(refArray) {
@@ -80,9 +80,9 @@ AboutArrays.prototype.testArraysReferences = function () {
 	var copyOfArray = array.slice();
 	copyOfArray[3] = "changed in copyOfArray";
 	assertEquals(__, array[3]);
-};
+});
 
-AboutArrays.prototype.testArrayPushAndPop = function () {
+koans.add("About Arrays", "Array Push And Pop", function () {
 	var array = [1, 2];
 	array.push(3);
 
@@ -91,9 +91,9 @@ AboutArrays.prototype.testArrayPushAndPop = function () {
 	var poppedValue = array.pop();
 	assertEquals(__, poppedValue);
 	assertEquals(__, array);
-};
+});
 
-AboutArrays.prototype.testShiftingArrays = function () {
+koans.add("About Arrays", "Shifting Arrays", function () {
 	var array = [1, 2];
 
 	array.unshift(3);
@@ -102,4 +102,4 @@ AboutArrays.prototype.testShiftingArrays = function () {
 	var shiftedValue = array.shift();
 	assertEquals(__, shiftedValue);
 	assertEquals(__, array);
-};
+});
