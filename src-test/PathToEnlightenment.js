@@ -26,9 +26,9 @@ var koanTestCases = new TestCase("JavascriptKoans", {
 			} catch (e) {
 				advanceToNextKoan = false;
 
+				var sourceLocations = /src-test.*$/m.exec(e.stack);
+				var sourceLocation = sourceLocations[0].replace(')','');			
 				
-				var sourceLocation = new RegExp('src-test.*\\)').exec(e.stack)[0].replace(')','');			
-
 				var msg = "\n'" + koans.all[i].name + "' has damaged your karma\n\n" 
 						+ "You have not yet reached enlightenment:\n"
 						+ "==> " + e.message
