@@ -1,62 +1,70 @@
-var dojox, jstestdriver; //global variables
+var jstestdriver, koans, dojox; //globals
 var df = dojox.lang.functional;    
 
-var AboutHigherOrderFunctions = new TestCase("AboutHigherOrderFunctions", {
-
-	setUp : function () {
-		this.numbers = [1,2,3];
-	},
-	
-	testFilterCreatesNewArrayFromSourceArraySuchThatFunctionOfItemReturnsTrue : function () {
-		var odd = df.filter(this.numbers, "x % 2 !== 0");
+koans.add("About Higher Order Functions","Filter Creates New Array From Source Array Such That Function Of Item Returns True", function () {
+		var numbers = [1,2,3];
+		var odd = df.filter(numbers, "x % 2 !== 0");
 		
 		assertEquals(__, odd);
 		assertEquals(__, odd.length);
-		assertEquals(__, this.numbers.length);
+		assertEquals(__, numbers.length);
 	},
+});
 	
-	testMapApplysFunctionToEachElement : function () {
-		var numbersPlus1 = df.map(this.numbers, "x + 1");
+koans.add("About Higher Order Functions","Map Applys Function To Each Element", function () {
+		var numbers = [1,2,3];
+		var numbersPlus1 = df.map(numbers, "x + 1");
 		
 		assertEquals(__, numbersPlus1);
-		assertEquals(__, this.numbers);
+		assertEquals(__, numbers);
 	},
+});
 	
-	testReduceApplysFunctionToResultAndNextItem : function () {
-		var reduction = df.reduce(this.numbers, "result + x");
+koans.add("About Higher Order Functions","Reduce Applys Function To Result And Next Item", function () {
+		var numbers = [1,2,3];
+		var reduction = df.reduce(numbers, "result + x");
 		
 		assertEquals(__, reduction); 
-		assertEquals(__, this.numbers);
+		assertEquals(__, numbers);
 	},
+});
 	
-	testForEach : function () {
-		df.forEach(this.numbers, function(x) { jstestdriver.console.log(x);});
+koans.add("About Higher Order Functions","forEach Applies function to each element", function () {
+		var numbers = [1,2,3];
+		var msg = "";
+		var isEven = function (item) {
+			msg += (item % 2) === 0;
+		};
+
+		df.forEach(numbers, isEven);
 		
-		//forEach doesn't return anything, so see see the console
-		assertEquals(__,this.numbers);
+		assertEquals(__,msg);
+		assertEquals(__,numbers);
 	}, 
+});
 	
-	testSomeAppliesUntilTrue : function () {
+koans.add("About Higher Order Functions","Some Applies Until True", function () {
+		var numbers = [1,2,3];
 		var msg = "";
 		var isEven = function (item) {
 			msg += item + ";";
 			return (item % 2) === 0;
 		};
 		
-		assertEquals(true, this.numbers.some(isEven));
+		assertEquals(true, numbers.some(isEven));
 		assertEquals(__, msg);
-	},
+});
 	
-	testEveryAppliesUntilFirstFalse : function () {
+koans.add("About Higher Order Functions","Every Applies Until First False" , function () {
+		var numbers = [1,2,3];
 		var msg = "";
 		var isEven = function (item) {
 			msg += item + ";";
 			return (item % 2) === 0;
 		};
 		
-		assertEquals(false, this.numbers.every(isEven));
+		assertEquals(false, numbers.every(isEven));
 		assertEquals(__, msg);
-	}
 });
 
 

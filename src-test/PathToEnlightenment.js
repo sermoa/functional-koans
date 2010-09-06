@@ -25,13 +25,17 @@ var koanTestCases = new TestCase("JavascriptKoans", {
 				i += 1; 
 			} catch (e) {
 				advanceToNextKoan = false;
+
+				var sourceLocations = /src-test.*$/m.exec(e.stack);
+				var sourceLocation = sourceLocations[0].replace(')','');			
 				
 				var msg = "\n'" + koans.all[i].name + "' has damaged your karma\n\n" 
 						+ "You have not yet reached enlightenment:\n"
 						+ "==> " + e.message
 						+ "\n\n"
 				        + "Meditate on the following code:\n"
-				        + koans.all[i].group + " :: " + koans.all[i].name;
+				        + koans.all[i].group + " :: " + koans.all[i].name +"\n"
+					+ sourceLocation;
 				jstestdriver.console.log(msg);
 				fail();
 			} 

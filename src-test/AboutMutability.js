@@ -1,13 +1,13 @@
-var AboutMutability = new TestCase("AboutMutability");
+var jstestdriver, koans; //globals
 
-AboutMutability.prototype.testObjectPropertiesArePublicAndMutable = function () {
+koans.add("About Mutability", "Object Properties Are Public And Mutable", function () {
 	var aPerson = {firstname: "John", lastname: "Smith" };
 	aPerson.firstname = "Alan";
 	
 	assertEquals(__, aPerson.firstname);
-};
+});
 
-AboutMutability.prototype.testConstructedPropertiesArePublicAndMutable = function () {
+koans.add("About Mutability", "Constructed Properties Are Public And Mutable", function () {
 	function Person(firstname, lastname)
 	{
 		this.firstname = firstname;
@@ -17,9 +17,9 @@ AboutMutability.prototype.testConstructedPropertiesArePublicAndMutable = functio
 	aPerson.firstname = "Alan";
 	
 	assertEquals(__, aPerson.firstname);
-};
+});
 
-AboutMutability.prototype.testPrototypeProperiesArePublicAndMutable = function () {
+koans.add("About Mutability", "Prototype Properies Are Public And Mutable", function () {
 	function Person(firstname, lastname)
 	{
 		this.firstname = firstname;
@@ -37,9 +37,9 @@ AboutMutability.prototype.testPrototypeProperiesArePublicAndMutable = function (
 	};
 	
 	assertEquals(__, aPerson.getFullName());
-};
+});
 
-AboutMutability.prototype.testVariablesInsideConstructorAndConstructorArgsArePrivate = function () {
+koans.add("About Mutability", "Variables Inside Constructor And Constructor Args Are Private", function () {
 	function Person(firstname, lastname)
 	{
 		var fullName = firstname + " " + lastname;
@@ -63,5 +63,5 @@ AboutMutability.prototype.testVariablesInsideConstructorAndConstructorArgsArePri
 	};
 	
 	assertEquals(__, aPerson.getFullName());
-};
+});
 
