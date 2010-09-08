@@ -34,8 +34,8 @@ JsKoansReporter.prototype.reportRunnerStarting = function(runner) {
   this.outerDiv = this.createDom('div', { className: 'jasmine_reporter' },
       this.createDom('h1', { }, "Javascript Koans"),
       this.runnerDiv = this.createDom('div', { className: 'runner running' },
-          this.createDom('a', { className: 'run_spec', href: '?' }, "run all"),
-          this.runnerMessageSpan = this.createDom('span', {}, "Running..."),
+          this.createDom('a', { className: 'run_spec', href: '?' }, "try again"),
+          this.runnerMessageSpan = this.createDom('span', {}, "Contemplating naval..."),
           this.finishedAtSpan = this.createDom('span', { className: 'finished-at' }, ""))
       );
 
@@ -57,7 +57,7 @@ JsKoansReporter.prototype.reportRunnerStarting = function(runner) {
 
    this.footerDiv = this.createDom('div', { className: 'banner' },
       this.createDom('div', { className: 'logo' },
-        "Using Jasmine",
+        "Test runner: Jasmine",
         this.createDom('span', { className: 'version' }, runner.env.versionString()))
       );
 
@@ -70,7 +70,7 @@ JsKoansReporter.prototype.reportRunnerStarting = function(runner) {
 
 JsKoansReporter.prototype.reportRunnerResults = function(runner) {
   var results = runner.results();
-  var className = (results.failedCount > 0) ? "runner failed" : "runner passed";
+  var className = "progress";
   this.runnerDiv.setAttribute("class", className);
   //do it twice for IE
   this.runnerDiv.setAttribute("className", className);
@@ -81,11 +81,9 @@ JsKoansReporter.prototype.reportRunnerResults = function(runner) {
       specCount++;
     }
   }
-  var message = "" + specCount + " spec" + (specCount == 1 ? "" : "s" ) + ", " + results.failedCount + " failure" + ((results.failedCount == 1) ? "" : "s");
-  message += " in " + ((new Date().getTime() - this.startedAt.getTime()) / 1000) + "s";
+  var message = "You are " + results.passedCount + "/" + results.totalCount + " of the way to achieving enlightenment";
   this.runnerMessageSpan.replaceChild(this.createDom('a', { className: 'description', href: '?'}, message), this.runnerMessageSpan.firstChild);
 
-  this.finishedAtSpan.appendChild(document.createTextNode("Finished at " + new Date().toString()));
 };
 
 JsKoansReporter.prototype.reportSuiteResults = function(suite) {
@@ -98,9 +96,6 @@ JsKoansReporter.prototype.reportSuiteResults = function(suite) {
 };
 
 JsKoansReporter.prototype.reportSpecStarting = function(spec) {
-  if (this.logRunningSpecs) {
-    this.log('>> Jasmine Running ' + spec.suite.description + ' ' + spec.description + '...');
-  }
 };
 
 JsKoansReporter.prototype.reportSpecResults = function(spec) {
