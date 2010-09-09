@@ -2,6 +2,7 @@ JsKoansReporter = function(doc) {
   this.document = doc || document;
   this.suiteDivs = {};
   this.logRunningSpecs = false;
+  this.failed = false;
 };
 
 JsKoansReporter.prototype.createDom = function(type, attrs, childrenVarArgs) {
@@ -99,9 +100,15 @@ JsKoansReporter.prototype.reportSpecStarting = function(spec) {
 JsKoansReporter.prototype.reportSpecResults = function(spec) {
   var results = spec.results();
   var status = results.passed() ? 'passed' : 'failed';
-  if (results.skipped) {
+  
+  if (results.skipped || this.failed) {
     status = 'skipped';
   }
+
+  if (status === 'failed') {
+    this.failed = true;
+  }
+
   var specDiv = this.createDom('div', { className: 'spec '  + status },
       this.createDom('a', { className: 'run_spec', href: '?spec=' + encodeURIComponent(spec.getFullName()) }, "run"),
       this.createDom('a', {
@@ -109,7 +116,6 @@ JsKoansReporter.prototype.reportSpecResults = function(spec) {
         href: '?spec=' + encodeURIComponent(spec.getFullName()),
         title: spec.getFullName()
       }, spec.description));
-
 
   var resultItems = results.getItems();
   var messagesDiv = this.createDom('div', { className: 'messages' });
