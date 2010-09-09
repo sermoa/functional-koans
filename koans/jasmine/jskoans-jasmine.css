@@ -101,26 +101,13 @@ body {
 
 .passed {
   background-color: #cfc;
-  display: none;
 }
 
 .failed {
   background-color: #fbb;
 }
 
-.skipped {
-  color: #777;
-  background-color: #eee;
-  display: none;
-}
-
-
-/*.resultMessage {*/
-  /*white-space: pre;*/
-/*}*/
-
 .resultMessage span.result {
-  display: block;
   line-height: 2em;
   color: black;
 }
@@ -145,12 +132,6 @@ body {
   font-size: .6em;
 }
 
-.show-passed .passed,
-.show-skipped .skipped {
-  display: block;
-}
-
-
 #jasmine_content {
   position:fixed;
   right: 100%;
@@ -158,7 +139,6 @@ body {
 
 .runner {
   border: 1px solid gray;
-  display: block;
   margin: 5px 0;
   padding: 2px 0 2px 10px;
 }

@@ -29,14 +29,12 @@ JsKoansReporter.prototype.createDom = function(type, attrs, childrenVarArgs) {
 };
 
 JsKoansReporter.prototype.reportRunnerStarting = function(runner) {
-  var showPassed, showSkipped;
-
-  this.outerDiv = this.createDom('div', { className: 'jasmine_reporter' },
+  this.outerDiv = this.createDom('div', { className: 'jasmine_reporter show-passed' },
       this.createDom('h1', { }, "Javascript Koans"),
       this.runnerDiv = this.createDom('div', { className: 'runner running' },
-          this.createDom('a', { className: 'run_spec', href: '?' }, "try again"),
-          this.runnerMessageSpan = this.createDom('span', {}, "Contemplating naval..."),
-          this.finishedAtSpan = this.createDom('span', { className: 'finished-at' }, ""))
+        this.createDom('a', { className: 'run_spec', href: '?' }, "try again"),
+        this.runnerMessageSpan = this.createDom('span', {}, "Contemplating naval..."),
+        this.finishedAtSpan = this.createDom('span', { className: 'finished-at' }, ""))
       );
 
   this.document.body.appendChild(this.outerDiv);
@@ -45,8 +43,8 @@ JsKoansReporter.prototype.reportRunnerStarting = function(runner) {
   for (var i = 0; i < suites.length; i++) {
     var suite = suites[i];
     var suiteDiv = this.createDom('div', { className: 'suite' },
-      this.createDom('a', { className: 'run_spec', href: '?spec=' + encodeURIComponent(suite.getFullName()) }, "run"),
-      this.createDom('a', { className: 'description', href: '?spec=' + encodeURIComponent(suite.getFullName()) }, suite.description));
+        this.createDom('a', { className: 'run_spec', href: '?spec=' + encodeURIComponent(suite.getFullName()) }, "run"),
+        this.createDom('a', { className: 'description', href: '?spec=' + encodeURIComponent(suite.getFullName()) }, suite.description));
     this.suiteDivs[suite.id] = suiteDiv;
     var parentDiv = this.outerDiv;
     if (suite.parentSuite) {
@@ -55,7 +53,7 @@ JsKoansReporter.prototype.reportRunnerStarting = function(runner) {
     parentDiv.appendChild(suiteDiv);
   }
 
-   this.footerDiv = this.createDom('div', { className: 'banner' },
+  this.footerDiv = this.createDom('div', { className: 'banner' },
       this.createDom('div', { className: 'logo' },
         "Test runner: Jasmine",
         this.createDom('span', { className: 'version' }, runner.env.versionString()))
@@ -118,9 +116,7 @@ JsKoansReporter.prototype.reportSpecResults = function(spec) {
   for (var i = 0; i < resultItems.length; i++) {
     var result = resultItems[i];
 
-    if (result.type == 'log') {
-      messagesDiv.appendChild(this.createDom('div', {className: 'resultMessage log'}, result.toString()));
-    } else if (result.type == 'expect' && result.passed && !result.passed()) {
+    if (result.type == 'expect' && result.passed && !result.passed()) {
       messagesDiv.appendChild(this.createDom('div', {className: 'resultMessage fail'}, result.message));
 
       if (result.trace.stack) {
@@ -128,12 +124,12 @@ JsKoansReporter.prototype.reportSpecResults = function(spec) {
       }
     }
   }
-
   if (messagesDiv.childNodes.length > 0) {
     specDiv.appendChild(messagesDiv);
   }
 
   this.suiteDivs[spec.suite.id].appendChild(specDiv);
+  
 };
 
 JsKoansReporter.prototype.log = function() {
