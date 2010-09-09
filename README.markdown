@@ -30,3 +30,6 @@ Import the project into Eclipse 3.6 (with JsTestDriver plugin), start the JsTest
 create a new Js Test Driver run configuration, and Run.
 
 Start editing src-test/AboutAssert.js, and rerunning the tests until they go green.
+
+##### License
+This software is (c) 2010 David Laing, and licensed under the MIT license (see LICENCE for details).  Enjoy!
