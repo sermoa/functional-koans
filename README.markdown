@@ -16,20 +16,33 @@ you to solve more complicated problems and use more advanced techniques.
 
 ### Getting Started
 
-These Koans are written to be run using the JsTestDriver unit test framework 
-which runs Javascript from within Eclipse concurrently in multiple attached browsers.
+These Koans are written to be run using the [JsTestDriver](http://code.google.com/p/js-test-driver/) unit test framework.
+
+#### Running the Koans in Eclipse
 
 See [http://www.youtube.com/watch?v=qAoWxXPLB0Q](http://www.youtube.com/watch?v=qAoWxXPLB0Q) for a demo.
 
-To use you will need Eclipse 3.6 for [Javascript Web Developers](http://www.eclipse.org/downloads/packages/eclipse-ide-javascript-web-developers/heliosm4)
+To use Eclipse, you will need Eclipse 3.6 for [Javascript Web Developers](http://www.eclipse.org/downloads/packages/eclipse-ide-javascript-web-developers/heliosm4)
 along with the [JsTestDriver plugin](http://code.google.com/p/js-test-driver/wiki/UsingTheEclipsePlugin)
-
-### Running the Koans
 
 Import the project into Eclipse 3.6 (with JsTestDriver plugin), start the JsTestDriver, attach a browser,
 create a new Js Test Driver run configuration, and Run.
 
 Start editing src-test/AboutAssert.js, and rerunning the tests until they go green.
+
+#### Running the Koans from a shell
+
+If you don't want to use Eclipse, you just need Java. Before you can run the Koans, you must capture a browser.
+
+To capture a browser, run this:
+
+    java -jar JsTestDriver.jar --port 42442 --runnerMode DEBUG
+
+... then open [http://localhost:42442](http://localhost:42442) and click "Capture this browser".
+
+To run the Koans, run this:
+
+    java -jar JsTestDriver.jar --reset --tests all
 
 ##### License
 This software is (c) 2010 David Laing, and licensed under the MIT license (see LICENCE for details).  Enjoy!
