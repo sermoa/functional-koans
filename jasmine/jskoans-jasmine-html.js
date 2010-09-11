@@ -34,7 +34,7 @@ JsKoansReporter.prototype.reportRunnerStarting = function(runner) {
       this.createDom('h1', { }, "Javascript Koans"),
       this.runnerDiv = this.createDom('div', { className: 'runner running' },
         this.createDom('a', { className: 'run_spec', href: '?' }, "try again"),
-        this.runnerMessageSpan = this.createDom('span', {}, "Contemplating naval..."),
+        this.runnerMessageSpan = this.createDom('span', {classname: 'running'}, "Contemplating naval..."),
         this.finishedAtSpan = this.createDom('span', { className: 'finished-at' }, ""))
       );
 
@@ -81,7 +81,7 @@ JsKoansReporter.prototype.reportRunnerResults = function(runner) {
     }
   }
   var message = "You are " + results.passedCount + "/" + results.totalCount + " of the way to achieving enlightenment";
-  this.runnerMessageSpan.replaceChild(this.createDom('a', { className: 'description', href: '?'}, message), this.runnerMessageSpan.firstChild);
+  this.runnerMessageSpan.replaceChild(this.createDom('span', { className: 'description', href: '?'}, message), this.runnerMessageSpan.firstChild);
 
 };
 
