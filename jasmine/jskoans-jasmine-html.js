@@ -1,8 +1,8 @@
 JsKoansReporter = function(doc) {
   this.document = doc || document;
   this.suiteDivs = {};
-  this.logRunningSpecs = false;
-  this.failed = false;
+  this.skippingFailedSpecs = false;
+  this.skippingFailedSuites = false;
 };
 
 JsKoansReporter.prototype.createDom = function(type, attrs, childrenVarArgs) {
@@ -45,7 +45,7 @@ JsKoansReporter.prototype.reportRunnerStarting = function(runner) {
     var suite = suites[i];
     var suiteDiv = this.createDom('div', { className: 'suite' },
         this.createDom('a', { className: 'run_spec', href: '?spec=' + encodeURIComponent(suite.getFullName()) }, "run"),
-        this.createDom('a', { className: 'description', href: '?spec=' + encodeURIComponent(suite.getFullName()) }, suite.description));
+        this.createDom('a', { className: 'description', href: '?spec=' + encodeURIComponent(suite.getFullName()) }, "Thinking " + suite.description));
     this.suiteDivs[suite.id] = suiteDiv;
     var parentDiv = this.outerDiv;
     if (suite.parentSuite) {
@@ -88,9 +88,13 @@ JsKoansReporter.prototype.reportRunnerResults = function(runner) {
 JsKoansReporter.prototype.reportSuiteResults = function(suite) {
   var results = suite.results();
   var status = results.passed() ? 'passed' : 'failed';
-  if (results.totalCount == 0) { // todo: change this to check results.skipped
-    status = 'skipped';
+  if (results.totalCount == 0 || this.skippingFailedSuites) {
+    status = 'skipped';  
   }
+  if (this.skippingFailedSpecs) {
+    this.skippingFailedSuites = true;
+  }
+
   this.suiteDivs[suite.id].className += " " + status;
 };
 
@@ -101,12 +105,17 @@ JsKoansReporter.prototype.reportSpecResults = function(spec) {
   var results = spec.results();
   var status = results.passed() ? 'passed' : 'failed';
   
-  if (results.skipped || this.failed) {
+  if (results.skipped || this.skippingFailedSpecs) {
     status = 'skipped';
   }
 
+  var description;
   if (status === 'failed') {
-    this.failed = true;
+    this.skippingFailedSpecs = true;
+
+    description = "It " + spec.description + ". It is damaging your karma."
+  } else {
+    description = "Knowing it " + spec.description + " has expanded your awareness."
   }
 
   var specDiv = this.createDom('div', { className: 'spec '  + status },
@@ -115,10 +124,11 @@ JsKoansReporter.prototype.reportSpecResults = function(spec) {
         className: 'description',
         href: '?spec=' + encodeURIComponent(spec.getFullName()),
         title: spec.getFullName()
-      }, spec.description));
+      }, description));
 
   var resultItems = results.getItems();
   var messagesDiv = this.createDom('div', { className: 'messages' });
+
   for (var i = 0; i < resultItems.length; i++) {
     var result = resultItems[i];
 
@@ -128,6 +138,8 @@ JsKoansReporter.prototype.reportSpecResults = function(spec) {
       if (result.trace.stack) {
         messagesDiv.appendChild(this.createDom('div', {className: 'stackTrace'}, result.trace.stack));
       }
+
+      break;
     }
   }
   if (messagesDiv.childNodes.length > 0) {
