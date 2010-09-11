@@ -133,10 +133,17 @@ JsKoansReporter.prototype.reportSpecResults = function(spec) {
     var result = resultItems[i];
 
     if (result.type == 'expect' && result.passed && !result.passed()) {
-      messagesDiv.appendChild(this.createDom('div', {className: 'resultMessage fail'}, result.message));
+      messagesDiv.appendChild(this.createDom('div', {className: 'resultMessage fail'}, result.message));     
 
       if (result.trace.stack) {
-        messagesDiv.appendChild(this.createDom('div', {className: 'stackTrace'}, result.trace.stack));
+        var lines = result.trace.stack.split('\n');
+        var stack = lines[0];
+        for (var i = 1; i < lines.length; i++) {
+          if (lines[i].search('/koans/') != -1) {
+            stack += '\n' + lines[i]
+          }
+        }
+        messagesDiv.appendChild(this.createDom('div', {className: 'stackTrace'}, stack.trim()));
       }
 
       break;
