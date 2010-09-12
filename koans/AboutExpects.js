@@ -22,7 +22,7 @@ describe("About Expects", function() {
 	  expect(actualValue).toEqual(expectedValue);
   });
 
-  //Often it is better to compare with the === operator
+  //Sometime you need to be really exact
   it("should assert equality with ===", function () { 
 	  var expectedValue = 2;
 	  var actualValue = 1 + 1;
