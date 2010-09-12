@@ -1,8 +1,8 @@
 JsKoansReporter = function(doc) {
   this.document = doc || document;
   this.suiteDivs = {};
-  this.skippingFailedSpecs = false;
-  this.skippingFailedSuites = false;
+  this.failedSpecs = 0;
+  this.failedSuites = 0;
 };
 
 JsKoansReporter.prototype.createDom = function(type, attrs, childrenVarArgs) {
@@ -33,8 +33,7 @@ JsKoansReporter.prototype.reportRunnerStarting = function(runner) {
   this.outerDiv = this.createDom('div', { className: 'jasmine_reporter show-passed' },
       this.createDom('h1', { }, "Javascript Koans"),
       this.runnerDiv = this.createDom('div', { className: 'runner running' },
-        this.createDom('a', { className: 'run_spec', href: '?' }, "try again"),
-        this.runnerMessageSpan = this.createDom('span', {classname: 'running'}, "Contemplating naval..."),
+        this.runnerMessageSpan = this.createDom('span', { classname: 'running' }, "Contemplating naval..."),
         this.finishedAtSpan = this.createDom('span', { className: 'finished-at' }, ""))
       );
 
@@ -44,7 +43,6 @@ JsKoansReporter.prototype.reportRunnerStarting = function(runner) {
   for (var i = 0; i < suites.length; i++) {
     var suite = suites[i];
     var suiteDiv = this.createDom('div', { className: 'suite' },
-        this.createDom('a', { className: 'run_spec', href: '?spec=' + encodeURIComponent(suite.getFullName()) }, "run"),
         this.createDom('a', { className: 'description', href: '?spec=' + encodeURIComponent(suite.getFullName()) }, "Thinking " + suite.description));
     this.suiteDivs[suite.id] = suiteDiv;
     var parentDiv = this.outerDiv;
@@ -63,8 +61,6 @@ JsKoansReporter.prototype.reportRunnerStarting = function(runner) {
   this.outerDiv.appendChild(this.footerDiv);
 
   this.startedAt = new Date();
-
-  var self = this;
 };
 
 JsKoansReporter.prototype.reportRunnerResults = function(runner) {
@@ -80,19 +76,57 @@ JsKoansReporter.prototype.reportRunnerResults = function(runner) {
       specCount++;
     }
   }
-  var message = "You are " + results.passedCount + "/" + results.totalCount + " of the way to achieving enlightenment";
-  this.runnerMessageSpan.replaceChild(this.createDom('span', { className: 'description', href: '?'}, message), this.runnerMessageSpan.firstChild);
 
+  var enlightenmentMessage;
+  if (this.failedSpecs === 0) {
+    status = 'passed';
+    enlightenmentMessage = "Enlightenment!";
+  } else {
+    status = 'failed';
+    enlightenmentMessage = "You have not yet reached enlightenment...";
+  }
+
+  var suitesCount = runner.suites().length;
+  var specsCount = runner.specs().length;
+  var hidePassed;
+  
+  var progress = this.createDom('div', {}, 
+      this.createDom('div', { className: 'enlightenment-' + status }, enlightenmentMessage),
+      this.createDom('div', { className: 'completion' }, 
+        this.createDom('div', {},
+          this.createDom('span', { className: 'key' }, "Subjects covered: "),
+          this.createDom('span', { className: 'value' }, suitesCount - this.failedSuites + "/" + runner.suites().length)
+          ),
+        this.createDom('div', {},
+          this.createDom('span', { className: 'key' }, "Koans learned: "),
+          this.createDom('span', { className: 'value' }, specsCount - this.failedSpecs + "/" + runner.specs().length)
+          ),
+        this.createDom('div', { className: 'options' },
+          this.createDom('label', { "for": "__jskoans_hidePassed__" }, " Hide passed "),
+          hidePassed = this.createDom('input', { id: "__jsKoans_hidePassed__", type: 'checkbox' })
+          )
+        )      
+      );
+  this.runnerMessageSpan.replaceChild(this.createDom('div', { className: 'description', href: '?'}, progress), this.runnerMessageSpan.firstChild);
+  
+  var self = this;
+  hidePassed.onchange = function(evt) {
+    if (evt.target.checked) {
+      self.outerDiv.className += ' hide-passed';
+    } else {
+      self.outerDiv.className = self.outerDiv.className.replace(/ hide-passed/, '');
+    }
+  };
 };
 
 JsKoansReporter.prototype.reportSuiteResults = function(suite) {
   var results = suite.results();
   var status = results.passed() ? 'passed' : 'failed';
-  if (results.totalCount == 0 || this.skippingFailedSuites) {
+  if (results.totalCount == 0 || this.failedSuites > 0) {
     status = 'skipped';  
   }
-  if (this.skippingFailedSpecs) {
-    this.skippingFailedSuites = true;
+  if (this.failedSpecs > 0) {
+    this.failedSuites += 1;
   }
 
   this.suiteDivs[suite.id].className += " " + status;
@@ -105,13 +139,13 @@ JsKoansReporter.prototype.reportSpecResults = function(spec) {
   var results = spec.results();
   var status = results.passed() ? 'passed' : 'failed';
   
-  if (results.skipped || this.skippingFailedSpecs) {
+  if (results.skipped || this.failedSpecs > 0) {
     status = 'skipped';
   }
 
   var description;
-  if (status === 'failed') {
-    this.skippingFailedSpecs = true;
+  if ( !results.passed() ) {
+    this.failedSpecs += 1;
 
     description = "It " + spec.description + ". It is damaging your karma."
   } else {
@@ -119,7 +153,7 @@ JsKoansReporter.prototype.reportSpecResults = function(spec) {
   }
 
   var specDiv = this.createDom('div', { className: 'spec '  + status },
-      this.createDom('a', { className: 'run_spec', href: '?spec=' + encodeURIComponent(spec.getFullName()) }, "run"),
+      this.createDom('a', { className: 'run_spec ' + status, href: '?spec=' + encodeURIComponent(spec.getFullName()) }, "meditate"),
       this.createDom('a', {
         className: 'description',
         href: '?spec=' + encodeURIComponent(spec.getFullName()),
@@ -127,13 +161,18 @@ JsKoansReporter.prototype.reportSpecResults = function(spec) {
       }, description));
 
   var resultItems = results.getItems();
-  var messagesDiv = this.createDom('div', { className: 'messages' });
+  var messagesDiv = this.createDom('div', { className: 'messages'});
 
   for (var i = 0; i < resultItems.length; i++) {
     var result = resultItems[i];
 
     if (result.type == 'expect' && result.passed && !result.passed()) {
-      messagesDiv.appendChild(this.createDom('div', {className: 'resultMessage fail'}, result.message));     
+      messagesDiv.appendChild(
+          this.createDom('div', { className: 'errorMessage' }, result.message)
+          );
+      messagesDiv.appendChild(
+          this.createDom('div', { className: 'meditate' }, "Please meditiate on the following code:")
+          );
 
       if (result.trace.stack) {
         var lines = result.trace.stack.split('\n');
