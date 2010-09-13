@@ -13,7 +13,7 @@ koans.add("About Objects", "Properties That Are Functions Act Like Methods", fun
 			firstname : "John", 
 			lastname: "Smith",
 			calculateAge: function (birthYear) {
-				var currentYear = new Date().getFullYear();
+				var currentYear = 2010;
 				return currentYear - birthYear;
 			}
 		};
@@ -27,7 +27,7 @@ koans.add("About Objects", "When Function Attached To Object this Refers To Obje
 			lastname: "Smith",
 			birthYear: 1978,
 			calculateAge: function () {
-				var currentYear = new Date().getFullYear();
+				var currentYear = 2010;
 				return currentYear - this.birthYear; 
 			}
 		};
