@@ -1,6 +1,6 @@
 var jstestdriver, koans; //globals
 
-koans.add("About Asserts", "Function Declaration", function () {
+koans.add("About Functions", "Function Declaration", function () {
 	
 	function add(a, b) {
 		return a + b;
@@ -10,7 +10,7 @@ koans.add("About Asserts", "Function Declaration", function () {
 
 });
 
-koans.add("About Asserts", "Internal Variables Override Outer Variables", function () {
+koans.add("About Functions", "Internal Variables Override Outer Variables", function () {
 	var message = "Outer";
 	
 	function getMessage() {
@@ -27,7 +27,7 @@ koans.add("About Asserts", "Internal Variables Override Outer Variables", functi
 	assertEquals(__, message);
 });
 
-koans.add("About Asserts", "Lexical Scoping", function () {
+koans.add("About Functions", "Lexical Scoping", function () {
 	var variable = "top-level";
 	function parentfunction() {
 	    var variable = "local";
@@ -39,7 +39,7 @@ koans.add("About Asserts", "Lexical Scoping", function () {
 	assertEquals(__, parentfunction());
 });
 
-koans.add("About Asserts", "Using Lexical Scoping To Synthesise Functions", function () {
+koans.add("About Functions", "Using Lexical Scoping To Synthesise Functions", function () {
 	
 	function makeIncreaseByFunction(increaseByAmount)
 	{
@@ -56,7 +56,7 @@ koans.add("About Asserts", "Using Lexical Scoping To Synthesise Functions", func
 	assertEquals(__, increaseBy3(10) + increaseBy5(10));
 });
 
-koans.add("About Asserts", "Extra Function Arguments", function () {
+koans.add("About Functions", "Extra Function Arguments", function () {
 	
 	function returnFirstArg(firstArg)
 	{
@@ -84,7 +84,7 @@ koans.add("About Asserts", "Extra Function Arguments", function () {
 	assertEquals(__, returnAllArgs("first", "second", "third"));
 });
 
-koans.add("About Asserts", "Functions As Values" function () {
+koans.add("About Functions", "Functions As Values" function () {
 
 	var appendRules = function (name) {
 		return name + " rules!";
@@ -102,7 +102,7 @@ koans.add("About Asserts", "Functions As Values" function () {
 		
 });
 
-koans.add("About Asserts", "Function Body As A String", function () {
+koans.add("About Functions", "Function Body As A String", function () {
 	var add = new Function("a", "b", "return a + b;");
 	assertEquals(__, add(1, 2));
 	 
