@@ -18,7 +18,9 @@ koans.add("Applying What We've Learnt","Find Needle In Haystack (Imperative)", f
 		    	hasInvalidOperation = true; 
 		        break; 
 		    }	
-		} 
+		}
+
+    return hasInvalidOperation;
 	};
 	
 	assertEquals(__, findNeedle(this.operations));
@@ -39,7 +41,7 @@ koans.add("Applying What We've Learnt","Add All The Natural Numbers Below 1000 T
 		}
 	}
 	
-	assertEquals(234168, sum);
+	assertEquals(__, sum);
 });
 
 koans.add("Applying What We've Learnt","Add All The Natural Numbers Below 1000 That Are Multiples Of 3 Or 5 (Functional)", function () {
@@ -51,7 +53,7 @@ koans.add("Applying What We've Learnt","Add All The Natural Numbers Below 1000 T
 	};
 	var numbers = df.repeat(1000, "+1", 1);
 
-	assertEquals(234168, df.reduce(numbers, sumIfMultipleOf3Or5, 0));
+	assertEquals(__, df.reduce(numbers, sumIfMultipleOf3Or5, 0));
 
 
 });
@@ -71,7 +73,7 @@ koans.add("Applying What We've Learnt","Find The Sum Of All The Even Valued Term
 		i+=1;
 	} while (currentFib < 4000000);
 	
-	assertEquals(4613732, sum);
+	assertEquals(__, sum);
 
 });
 
@@ -88,7 +90,7 @@ koans.add("Applying What We've Learnt","Find The Sum Of All The Even Valued Term
 	var fib = df.until("item[0] > 4000000", calcNextFibTuple, [0,1]);
 	var sum = df.reduce(fib, addEven, 0);
 	
-	assertEquals(4613732, sum);
+	assertEquals(__, sum);
 });
 	/***********************************************************************************/
 
