@@ -16,14 +16,14 @@ h1 {
   color: blue; 
 }
 
-.run_spec {
+.run_spec_failed, .run_spec_skipped {
   float:right;
   padding-right: 5px;
   font-size: .8em;
   text-decoration: none;
 }
 
-.run_spec.passed {
+.run_spec_passed {
   display: none;
 }
 
@@ -64,11 +64,11 @@ h1 {
   margin: 5px; 
 }
 
-.suite.passed {
+.suite.passed, .suite.passed-skipped {
   background-color: #dfd;
 }
 
-.suite.failed {
+.suite.failed, .suite.failed-skipped {
   background-color: #fdd;
 }
 
@@ -78,27 +78,23 @@ h1 {
   clear: both;
 }
 
-.spec.failed, .spec.passed, .spec.skipped {
+.spec.failed, .spec.passed, .spec.passed-skipped, .spec.failed-skipped {
   padding-bottom: 5px;
   border: 1px solid gray;
 }
 
-.spec.failed {
+.spec.failed, .spec.failed-skipped {
   background-color: #fbb;
   border-color: red;
 }
 
-.spec.passed {
+.spec.passed, .spec.passed-skipped {
   background-color: #bfb;
   border-color: green;
 }
 
-.spec.skipped {
-  background-color: #bbb;
-}
-
 .messages {
-  border-left: 1px dashed gray;
+  border-left: 1px;
 }
 
 .errorMessage {
@@ -108,6 +104,7 @@ h1 {
   padding: .2em 1em;
   margin-left: 10px;
   margin-right: 5px;
+  margin-bottom: 10px;
   background: #eef;
 }
 
@@ -117,16 +114,15 @@ h1 {
 
 .passed {
   background-color: #cfc;
-  display: block;
+  display: none;
 }
 
 .failed {
   background-color: #fbb;
+  display: block;
 }
 
-.skipped {
-   color: #777;
-   background-color: #eee;
+.passed-skipped, .failed-skipped {
    display: none;
 }   
 
@@ -158,11 +154,19 @@ h1 {
   font-size: .6em;
 }
 
-.show-skipped .skipped {
+.show-skipped .passed-skipped {
   display: block;
 }
-.hide-passed .passed {
-  display: none;
+
+.show-skipped .failed-skipped {
+  display: block;
+}
+
+.show-passed .passed {
+  display: block;
+}
+.show-failed .failed {
+  display: block;
 }
 
 #jasmine_content {
