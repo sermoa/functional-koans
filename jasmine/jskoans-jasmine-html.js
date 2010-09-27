@@ -45,7 +45,8 @@ JsKoansReporter.prototype.reportRunnerStarting = function(runner) {
   for (var i = 0; i < suites.length; i++) {
     var suite = suites[i];
     var suiteDiv = this.createDom('div', { className: 'suite' },
-        this.createDom('a', { className: 'description', href: '?spec=' + encodeURIComponent(suite.getFullName()) }, "Thinking " + suite.description));
+        this.createDom('a', { className: 'description', href: '?spec=' + encodeURIComponent(suite.getFullName()) }, 
+          this.getSuiteDescription(suite)));
     this.suiteDivs[suite.id] = suiteDiv;
     var parentDiv = this.outerDiv;
     if (suite.parentSuite) {
@@ -98,7 +99,7 @@ JsKoansReporter.prototype.reportRunnerResults = function(runner) {
       this.createDom('div', { className: 'completion' }, 
         this.createDom('div', {},
           this.createDom('span', { className: 'key' }, "Subjects covered: "),
-          this.createDom('span', { className: 'value' }, suitesCount - this.failedSubjects + "/" + this.noOfSubjects)
+          this.createDom('span', { className: 'value' }, this.noOfSubjects - this.failedSubjects + "/" + this.noOfSubjects)
           ),
         this.createDom('div', {},
           this.createDom('span', { className: 'key' }, "Koans learned: "),
@@ -233,3 +234,12 @@ JsKoansReporter.prototype.specFilter = function(spec) {
   if (!paramMap["spec"]) return true;
   return spec.getFullName().indexOf(paramMap["spec"]) == 0;
 };
+
+JsKoansReporter.prototype.getSuiteDescription = function(suite) {
+  if (null === suite.parentSuite) {
+    return "Thinking " + suite.description;
+  } else {
+    return "Considering " + suite.description;
+  }
+};
+

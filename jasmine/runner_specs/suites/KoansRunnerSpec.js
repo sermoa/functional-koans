@@ -21,6 +21,13 @@ describe("KoansRunner", function() {
     };
   }
 
+  function fakeSuite(desc) {
+    return {
+      parentSuite: null,
+      description: desc
+    };
+  }
+
   function findElements(divs, withClass) {
     var els = [];
     for (var i = 0; i < divs.length; i++) {
@@ -310,6 +317,25 @@ describe("KoansRunner", function() {
           expect(reporter.failedSubjects).toBe(1);
         });          
 
+      });
+    });
+  });
+
+  describe("presentation", function() {
+    describe("showing the suite description", function() {
+      it("should prefix outer suite descriptions with 'Thinking'", function() {
+        suite = fakeSuite("About Pies"); 
+        description = reporter.getSuiteDescription(suite);
+
+        expect(description).toEqual("Thinking About Pies");
+      });
+
+      it("should prefix inner suite descriptions with 'Thinking'", function() {
+        suite = fakeSuite("cherries");
+        suite.parentSuite = "Something";
+        description = reporter.getSuiteDescription(suite);
+
+        expect(description).toEqual("Considering cherries");
       });
     });
   });
