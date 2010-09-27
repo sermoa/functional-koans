@@ -2,7 +2,9 @@ JsKoansReporter = function(doc) {
   this.document = doc || document;
   this.suiteDivs = {};
   this.failedSpecs = 0;
-  this.failedSuites = 0;
+
+  this.noOfSubjects = 0;
+  this.failedSubjects = 0;
 };
 
 JsKoansReporter.prototype.createDom = function(type, attrs, childrenVarArgs) {
@@ -96,7 +98,7 @@ JsKoansReporter.prototype.reportRunnerResults = function(runner) {
       this.createDom('div', { className: 'completion' }, 
         this.createDom('div', {},
           this.createDom('span', { className: 'key' }, "Subjects covered: "),
-          this.createDom('span', { className: 'value' }, suitesCount - this.failedSuites + "/" + runner.suites().length)
+          this.createDom('span', { className: 'value' }, suitesCount - this.failedSubjects + "/" + this.noOfSubjects)
           ),
         this.createDom('div', {},
           this.createDom('span', { className: 'key' }, "Koans learned: "),
@@ -132,11 +134,15 @@ JsKoansReporter.prototype.reportRunnerResults = function(runner) {
 JsKoansReporter.prototype.reportSuiteResults = function(suite) {
   var results = suite.results();
   var status = results.passed() ? 'passed' : 'failed';
-  if (results.totalCount == 0 || this.failedSuites > 0) {
+  if (results.totalCount == 0 || this.failedSubjects > 0) {
     status += '-skipped';  
   }
-  if (this.failedSpecs > 0) {
-    this.failedSuites += 1;
+
+  if (suite.parentSuite == null) {
+    this.noOfSubjects +=1;
+    if (this.failedSpecs > 0) {
+      this.failedSubjects += 1;
+    }
   }
 
   this.suiteDivs[suite.id].className += " " + status;

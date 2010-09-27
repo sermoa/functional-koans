@@ -198,12 +198,119 @@ describe("KoansRunner", function() {
       });
     });
 
-    it('DOES NOT log running specs by default', function() {
+    it('should not log running specs by default', function() {
       spyOn(reporter, 'log');
 
       reporter.reportSpecStarting(spec1);
 
       expect(reporter.log).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('showing progress', function() {
+    beforeEach(function() {
+      env.describe("suite 1", function() {
+        env.it("spec A");
+        env.it("spec B");
+      });
+      env.describe("suite 2", function() {
+        env.it("spec C");
+      });
+    });
+
+    describe('subjects', function() {
+      describe("with no failures", function() {
+        beforeEach(function() {
+          env.addReporter(reporter);
+          env.execute();          
+        });
+
+        it("should have 2 subjects", function() {
+          expect(reporter.noOfSubjects).toBe(2);
+        });
+
+        it("should not have any failed subjects", function() {
+          expect(reporter.failedSubjects).toBe(0);
+        });
+      });
+
+      describe("with 1 failure", function() {
+        beforeEach(function() {
+          env.describe("suite with error", function() {
+            env.it("spec X", function() {
+              expect(true).toBeFalsey();
+            });
+            env.it("spec Y", function() {
+              expect(true).toBeFalsey();
+            });
+          });
+
+          env.addReporter(reporter);
+          env.execute();
+        });
+
+        it("should have 3 subjects", function() {
+          expect(reporter.noOfSubjects).toBe(3);
+        });
+
+        it("should have a failure", function() {
+          expect(reporter.failedSubjects).toBe(1);
+        });
+      });
+
+      describe("with 2 failures", function() {
+        beforeEach(function() {
+          env.describe("suite with error", function() {
+            env.it("spec X", function() {
+              expect(true).toBeFalsey();
+            });
+          });
+          env.describe("suite with error too", function() {
+            env.it("spec Y", function() {
+              expect(true).toBeFalsey();
+            });
+          });
+
+          env.addReporter(reporter);
+          env.execute();
+        });
+
+        it("should have 4 subjects", function() {
+          expect(reporter.noOfSubjects).toBe(4);
+        });        
+        
+        it("should have 2 failures", function() {
+          expect(reporter.failedSubjects).toBe(2);
+        });  
+      });
+
+      describe("with embedded suites only outer suites count as subjects", function() {
+        beforeEach(function() {
+          env.describe("outer suite", function() {
+            env.it("spec for outer suite", function() {
+              expect(true).toBeFalsey();
+            });
+
+            env.describe("inner suite", function() {
+              env.it("spec for inner suite", function() {
+                expect(true).toBeFalsey();
+              });
+            });
+          });
+
+          env.addReporter(reporter);
+          env.execute();
+        });
+
+        it("should have 3 suites", function() {
+          expect(reporter.noOfSubjects).toBe(3);
+        });        
+        
+        it("should have 1 failure", function() {
+          expect(reporter.failedSubjects).toBe(1);
+        });          
+
+      });
     });
   });
 });
