@@ -1,64 +1,87 @@
 describe("About Objects", function () {
 
-  it("should confirm objects are collections of properties", function () {
-    var aPerson = { firstname : "John", lastname: "Smith"  };
-    
-    expect(__).toBe(aPerson.firstname);
-    expect(__).toBe(aPerson.lastname);
-    expect(__).toBe(aPerson.lastName);
-  }); 
+  describe("Properties", function () {
+    var meglomaniac;
+
+    beforeEach(function () {
+       meglomaniac = {  mastermind: "Joker", henchwoman: "Harley" };
+    });
+
+    it("should confirm objects are collections of properties", function () {
+      expect(__).toBe(meglomaniac.mastermind);
+    }); 
+
+    it("should confirm that properties are case sensitive", function () {
+      expect(__).toBe(meglomaniac.henchwoman);
+      expect(__).toBe(meglomaniac.henchWoman);
+    });
+  });
+  
 
   it("should know properties that are functions act like methods", function () {
-    var aPerson = { 
-        firstname : "John", 
-        lastname: "Smith",
-        calculateAge: function (birthYear) {
-          var currentYear = 2010;
-          return currentYear - birthYear;
-        }
-      };
-    
-    expect(__).toBe(aPerson.calculateAge(1977));
-  });
-
-  it("should confirm that when a function is attached to an object 'this' refers to object", function () {
-    var aPerson = { 
-        firstname : "John", 
-        lastname: "Smith",
-        birthYear: 1978,
-        calculateAge: function () {
-          var currentYear = 2010;
-          return currentYear - this.birthYear; 
-        }
-      };
-    
-    expect(__).toBe(aPerson.calculateAge());
-  });
-
-  it("should use 'in' to check for the existance of properties", function () {
-    var aPerson = { firstname : "John", lastname: "Smith"  };
-
-    var checkIfGenderExists = function (object)
-    {
-      if ("gender" in object) { return true; }
-      return false;
+    var meglomaniac = { 
+      mastermind : "Brain", 
+      henchman: "Pinky",
+      battleCry: function (noOfBrains) {
+        return "They are " + this.henchman + " and the" +
+          Array(noOfBrains + 1).join(" " + this.mastermind);
+      }
     };
-    
-    expect(__).toBe(checkIfGenderExists(aPerson));
+   
+    battleCry = meglomaniac.battleCry(4);
+    expect(battleCry).toMatch(__);
   });
 
-  it("should knaw that properties can be added and deleted", function () {
-    var aPerson = { firstname : "John", lastname: "Smith"  };
+  it("should confirm that when a function is attached to an object, 'this' refers to the object", function () {
+    var currentYear = 2010; // Update me!
+    var meglomaniac = { 
+      mastermind: "James Wood", 
+      henchman: "Adam West",
+      birthYear: 1970,
+      calculateAge: function () {
+        return currentYear - this.birthYear; 
+      }
+    };
+   
+    expect(__).toBe(currentYear);
+    expect(__).toBe(meglomaniac.calculateAge());
+  });
 
-    expect(__).toBe(("gender" in aPerson));
-    expect(__).toBe(aPerson.gender);
+  describe("'in' keyword", function () {
+    var meglomaniac;
+    beforeEach(function () {
+      meglomaniac = { 
+        mastermind: "The Monarch", 
+        henchwoman: "Dr Girlfriend",
+        theBomb: true
+      };
+    });
 
-    aPerson.gender = "male";
-    expect(__).toBe(("gender" in aPerson));
+    it("should have the bomb", function () {
+
+      hasBomb = "theBomb" in meglomaniac;
+     
+      expect(__).toBe(hasBomb);
+    });
+
+    it("should not have the detonator however", function () {
+
+      hasDetonator = "theDetonator" in meglomaniac;
+     
+      expect(__).toBe(hasDetonator);
+    });    
+  });
+
+  it("should know that properties can be added and deleted", function () {
+    var meglomaniac = { mastermind : "Agent Smith", henchman: "Agent Smith" };
+
+    expect(__).toBe(("secretary" in meglomaniac));
+
+    meglomaniac.secretary = "Agent Smith";
+    expect(__).toBe(("secretary" in meglomaniac));
     
-    delete aPerson.gender;
-    expect(__).toBe(("gender" in aPerson));
-    expect(__).toBe(aPerson.gender);
+    delete meglomaniac.henchman;
+    expect(__).toBe(("henchman" in meglomaniac));
   });
 
 
