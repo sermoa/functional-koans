@@ -7,25 +7,25 @@ describe("About Higher Order Functions", function () {
     var numbers = [1,2,3];
     var odd = df.filter(numbers, "x % 2 !== 0");
     
-    expect(__).toEqual(odd);
-    expect(__).toBe(odd.length);
-    expect(__).toBe(numbers.length);
+    expect([1, 3]).toEqual(odd);
+    expect(2).toBe(odd.length);
+    expect(3).toBe(numbers.length);
   });
     
   it("should use 'map' to transform each element", function () {
     var numbers = [1, 2, 3];
     var numbersPlus1 = df.map(numbers, "x + 1");
     
-    expect(__).toEqual(numbersPlus1);
-    expect(__).toEqual(numbers);
+    expect([2, 3, 4]).toEqual(numbersPlus1);
+    expect([1, 2, 3]).toEqual(numbers);
   });
     
   it("should use 'reduce' to update the same result on each iteration ", function () {
     var numbers = [1, 2, 3];
     var reduction = df.reduce(numbers, "result + x");
     
-    expect(__).toBe(reduction); 
-    expect(__).toEqual(numbers);
+    expect(6).toBe(reduction); 
+    expect([1, 2, 3]).toEqual(numbers);
   });
     
   it("should use 'forEach' for simple iteration", function () {
@@ -37,8 +37,8 @@ describe("About Higher Order Functions", function () {
 
     df.forEach(numbers, isEven);
     
-    expect(__).toEqual(msg);
-    expect(__).toEqual(numbers); 
+    expect("falsetruefalse").toEqual(msg);
+    expect([1, 2, 3]).toEqual(numbers); 
   });
     
   it("should use 'some' to apply until true", function () {
@@ -50,7 +50,7 @@ describe("About Higher Order Functions", function () {
     };
    
     expect(numbers.some(isEven)).toBeTruthy();
-    expect(__).toEqual(msg);
+    expect("1;2;").toEqual(msg);
   });
     
   it("should use 'every' to applies until first false" , function () {
@@ -62,7 +62,7 @@ describe("About Higher Order Functions", function () {
     };
     
     expect(numbers.every(isEven)).toBeFalsy();
-    expect(__).toBe(msg);
+    expect("1;").toBe(msg);
   });
 });
 

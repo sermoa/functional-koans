@@ -32,11 +32,11 @@ describe("About Applying What We Have Learnt", function() {
       return hasInvalidOperation;
     };
     
-    expect(__).toBe(findNeedle(operations));
+    expect(true).toBe(findNeedle(operations));
   });
 
   it("should find needle in a haystack (functional)", function () {
-    expect(__).toBe(df.some(operations, "x.direction === 'FWD' && x.distance > 100"));    
+    expect(true).toBe(df.some(operations, "x.direction === 'FWD' && x.distance > 100"));    
   });
 
   /*********************************************************************************/
@@ -50,7 +50,7 @@ describe("About Applying What We Have Learnt", function() {
       }
     }
     
-    expect(__).toBe(sum);
+    expect(234168).toBe(sum);
   });
 
   it("should add all the natural numbers below 1000 that are multiples of 3 or 5 (functional)", function () {
