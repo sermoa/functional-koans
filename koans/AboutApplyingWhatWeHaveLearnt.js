@@ -62,7 +62,7 @@ describe("About Applying What We Have Learnt", function() {
     };
     var numbers = df.repeat(1000, "+1", 1);
 
-    expect(__).toBe(df.reduce(numbers, sumIfMultipleOf3Or5, 0));
+    expect(234168).toBe(df.reduce(numbers, sumIfMultipleOf3Or5, 0));
   });
 
   /*********************************************************************************/
@@ -81,7 +81,7 @@ describe("About Applying What We Have Learnt", function() {
       i+=1;
     } while (currentFib < 4000000);
     
-    expect(__).toBe(sum);
+    expect(4613732).toBe(sum);
   });
 
   it("should find the sum of all the even valued terms in the fibonacci sequence which do not exceed four million (functional)", function () {
@@ -97,7 +97,7 @@ describe("About Applying What We Have Learnt", function() {
     var fib = df.until("item[0] > 4000000", calcNextFibTuple, [0,1]);
     var sum = df.reduce(fib, addEven, 0);
     
-    expect(__).toBe(sum);
+    expect(4613732).toBe(sum);
   });
 
   /*********************************************************************************/
